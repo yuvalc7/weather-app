@@ -1,28 +1,46 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container-fluid" id="app">
+    <div class="header">
+    <NavigationHeader @selected-screen="setSelectedScreen"/>
+    </div>
+    <div class="body">
+    <Home-screen v-if="showHomeScreen"/>
+    <favorites-screen v-else/>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HomeScreen from './components/HomeScreen.vue'
+import NavigationHeader from "@/components/NavigationHeader";
+import FavoritesScreen from "@/components/FavoritesScreen";
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    FavoritesScreen,
+    NavigationHeader,
+    HomeScreen
+  },
+
+  data(){
+    return{
+       showHomeScreen: true
+    }
+  },
+
+  methods:{
+
+    setSelectedScreen(isHomeScreen){
+      this.showHomeScreen = isHomeScreen;
+    }
+
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.header{
+  margin-bottom: 3%;
 }
 </style>
