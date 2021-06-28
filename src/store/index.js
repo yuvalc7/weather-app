@@ -1,14 +1,21 @@
 import Vuex from 'vuex';
-
 import Vue from "vue";
+import *  as actions from "./actions";
+import * as mutations from "./mutations";
+
 
 Vue.use(Vuex);
 
-new Vuex.store({
+export default new Vuex.Store({
 
     state:{
-       countries:[],
-    }
+       keyCitySelect : "215854",// tel aviv
+       cityName:"Tel Aviv",
+       fiveDaysForecasts: [],
+       currentCondition: [],
+    },
+    actions,
+    mutations
 
 
 })

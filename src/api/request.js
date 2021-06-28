@@ -1,11 +1,10 @@
 import axios from "axios";
-import {Globals} from "@/constant/constants";
 
 export default function apiRequest(path, key){
 
-    return axios.get(Globals.ACCU_WEATHER_ENDPOINT + path, {
+    return axios.get(process.env.VUE_APP_ACCU_WEATHER_ENDPOINT + path, {
             params: {
-                apikey: 'hfLt2c8RaTAhwLjemo21X5WQCIyIRPSE',
+                apikey: process.env.VUE_APP_API_KEY,
                 ...(key ? { q: key } : {})
             }
         });
