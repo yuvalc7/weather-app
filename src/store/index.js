@@ -11,8 +11,11 @@ export default new Vuex.Store({
     state:{
        keyCitySelect : "215854",// tel aviv
        cityName:"Tel Aviv",
+        country:"",
        fiveDaysForecasts: [],
        currentCondition: [],
+       favorites:[],
+       favoritesItems:[],
     },
     actions,
     mutations

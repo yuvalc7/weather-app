@@ -30,7 +30,7 @@ export default {
   components:{SearchBar, MainCurrentCondition, AddToFavorites, Cards},
 
   computed: {
-    ...mapState( ["keyCitySelect", "fiveDaysForecasts", "currentCondition" ])
+    ...mapState( ["country","keyCitySelect", "fiveDaysForecasts", "currentCondition" ])
   },
 
   data(){
@@ -39,20 +39,20 @@ export default {
     }
   },
 
-
   mounted() {
-
+    // this.$store.dispatch('getForecastsFiveDays');
+    // this.$store.dispatch('getCurrentCondition' );
   },
 
 
 
   methods:{
 
-    setStoreVars(CityNameAndKey){
-     // console.log(CityName, cityKey)
-      this.$store.commit('setKeyAndNameCitySelect' , CityNameAndKey);
-      // this.$store.dispatch('getForecastsFiveDays');
-      // this.$store.dispatch('getCurrentCondition');
+    setStoreVars(CityNameKeyAndCountry){
+      //console.log(CityNameKeyAndCountry.cityKey);
+      this.$store.commit('setKeyNameCityAndCountry' , CityNameKeyAndCountry);
+       // this.$store.dispatch('getForecastsFiveDays');
+       // this.$store.dispatch('getCurrentCondition' );
     }
 
   }
@@ -64,10 +64,26 @@ export default {
 .main-container{
   height: fit-content;
   margin-top: 3% ;
+  box-shadow: 0 2px 6px 2px rgb(0 0 0 / 18%), 0 1px 1px 0 rgb(0 0 0 / 41%), 0 1px 3px 0 rgb(0 0 0 / 48%);
+  padding: 3%;
+  border-radius: 6px;
+
 }
+
+.search-bar{
+  width: 80%;
+  margin: auto;
+}
+
 .main-current-condition-section{
   display: flex;
   justify-content: space-between;
   margin-bottom: 10%;
+}
+
+@media (max-width: 700px) {
+  .search-bar{
+    width: 100%;
+  }
 }
 </style>

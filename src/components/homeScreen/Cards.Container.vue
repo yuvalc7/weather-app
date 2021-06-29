@@ -1,9 +1,17 @@
 <template>
-  <div>
-  <div class="card-group" >
-    <card v-for="card in cards" :key="card" :temperature="card.Temperature" :icon="card.Day.Icon"></card>
+
+  <div class="cards-group" >
+    <card v-for="(card,index) in cards"
+          :key="index"
+          :temperature="card.Temperature"
+          :icon="card.Day.Icon"
+          :iconPhrase="card.Day.IconPhrase"
+          :date="card.Date"
+          :cardsComponent="true">
+
+    </card>
   </div>
-  </div>
+
 </template>
 
 <script>
@@ -119,7 +127,7 @@ export default {
           },
           }
           },
-          { Date: "2021-06-31T07:00:00+04:30",
+          { Date: "2021-07-01T07:00:00+04:30",
           Day: {
           Icon: 6, IconPhrase: "Mostly cloudy", HasPrecipitation: false
           },
@@ -152,11 +160,17 @@ export default {
 
 <style scoped>
 
-
+.cards-group{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
 @media (max-width: 700px) {
-  .card-group{
+  .cards-group{
     flex-direction: column;
+    align-items: center;
   }
 }
 

@@ -3,20 +3,22 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
 <!--    <div class="container-fluid">-->
       <div class="d-flex" >
-        <button
-            type="button"
+        <router-link
+            exact
+            to="/favorites"
             @click="selectedScreen('favorites')"
             :class="[homeScreenSelected ? 'btn btn-outline-primary' : 'btn btn-primary']"
         >
           Favorites
-        </button>
-        <button
-            type="button"
+        </router-link>
+        <router-link
+            exact
+            to="/"
             @click="selectedScreen('home')"
             :class="[homeScreenSelected ?  'btn btn-primary' :'btn btn-outline-primary']"
         >
           Home
-        </button>
+        </router-link>
 <!--      </div>-->
     </div>
   </nav>
@@ -37,7 +39,6 @@ export default {
 
     selectedScreen(selected){
       selected === 'home' ? this.homeScreenSelected = true: this.homeScreenSelected = false;
-      this.$emit('selected-screen' , this.homeScreenSelected);
     }
   }
 };

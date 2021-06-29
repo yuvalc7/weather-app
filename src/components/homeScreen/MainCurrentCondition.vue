@@ -1,13 +1,14 @@
 <template>
 
   <div class="wrapper-city-name-temperature-icon">
-    <i class="bi bi-brightness-high-fill weather-icon"></i>
+<!--    <i class="bi bi-brightness-high-fill weather-icon"></i>-->
+    <img :src= "getImgUrl()" class="card-img" alt="...">
     <div class="city-name-temperature">
       <span> {{ cityName }} </span>
       <div class="temperature">
-      <span id="current-temp"> {{currentCondition[0].Temperature.Metric.Value }}</span>
+      <span id="current-temp"> {{currentCondition.Temperature.Metric.Value }}</span>
 
-      <span > {{currentCondition[0].Temperature.Metric.Unit }}</span>
+      <span > {{currentCondition.Temperature.Metric.Unit }}</span>
       </div>
     </div>
   </div>
@@ -22,13 +23,12 @@ export default {
   name: "MainCurrentCondition",
 
   computed: {
-    ...mapState( ["currentCondition", "cityName" ])
+    ...mapState( [ "cityName" ])//"currentCondition"
   },
 
   data(){
     return {
-      //currentCondition: [...this.$store.state.currentCondition],
-      currentCondition:   [{EpochTime: 1624877760,
+      currentCondition:   {EpochTime: 1624877760,
         HasPrecipitation: false,
         IsDayTime: true,
         Link: "http://www.accuweather.com/en/tr/istanbul/318251/current-weather/318251?lang=en-us",
@@ -45,26 +45,27 @@ export default {
         WeatherIcon: 1,
         WeatherText: "Sunny",
         __proto__: Object,
-        length: 1}],
-      cityName: this.$store.state.cityName
+        length: 1},
     }
   },
 
   mounted() {
+   // console.log(this.currentCondition);
+  },
 
+  methods:{
+    getImgUrl() {
+      var images = require.context('../../../public/icons/', false, /\.png$/)
+      return images('./' + this.currentCondition.WeatherIcon + "-s.png")
+    },
   }
-
-
 
 }
 </script>
 
 <style scoped>
 
-.header{
-  display: flex;
-  justify-content: space-between;
-}
+
 .wrapper-city-name-temperature-icon{
   display: flex;
   width: 40%;
@@ -76,8 +77,9 @@ export default {
   margin-left: 10%;
   font-size: 35px;
 }
-.weather-icon{
-  font-size: 7rem;
+.card-img{
+  width: 150px;
+  height: 100px;
 }
 .temperature{
   display: flex;

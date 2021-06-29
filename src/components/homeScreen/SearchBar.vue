@@ -4,7 +4,8 @@
       <input class="form-control" type="search" placeholder="Search City" v-model="searchTerm">
     </div>
     <ul class="dropdown-cities" v-if="cities.length > 0 && (selectedCityTemp === '' || selectedCityTemp != selectedCity)">
-      <li class="city-item" v-for="city in cities" :key="city.Key" @click="setSelectedCity(city.LocalizedName, city.Key) ;">
+      <li class="city-item" v-for="city in cities" :key="city.Key"
+          @click="setSelectedCity(city.LocalizedName, city.Key , city.Country.LocalizedName) ;">
         {{city.LocalizedName}}
       </li>
     </ul>
@@ -14,7 +15,7 @@
 <script>
 import _ from "lodash";
 import vClickOutside from "v-click-outside";
-//import apiRequest from "../api/request";
+//import apiRequest from "../../api/request";
 export default {
 name: 'SearchBar',
 
@@ -55,18 +56,16 @@ if(this.searchTerm.length > 0  ){
 methods:{
 debouncedQuery: _.debounce(async function() {
 
-
-
-this.cities = [{Version: 1, Key: "318251", Type: "City", Rank: 11, LocalizedName: "Istanbul"},
-{Version: 1, Key: "208194", Type: "City", Rank: 21, LocalizedName: "Isfahan"},
-{Version: 1, Key: "224032", Type: "City", Rank: 21, LocalizedName: "Incheon"},
-{Version: 1, Key: "255043", Type: "City", Rank: 21, LocalizedName: "Ibadan"},
-{Version: 1, Key: "318290", Type: "City", Rank: 21, LocalizedName: "Izmir"},
-{Version: 1, Key: "2333546", Type: "City", Rank: 25, LocalizedName: "Ili Prefecture"},
-{Version: 1, Key: "204411", Type: "City", Rank: 25, LocalizedName: "Indore"},
-{Version: 1, Key: "237597", Type: "City", Rank: 25, LocalizedName: "Iztapalapa"},
-{Version: 1, Key: "258278", Type: "City", Rank: 30, LocalizedName: "Islamabad"},
-{Version: 1, Key: "287994", Type: "City", Rank: 31, LocalizedName: "Iasi"}]
+this.cities = [{Version: 1, Key: "318251", Type: "City", Rank: 11, LocalizedName: "Istanbul", Country: {ID: "NG", LocalizedName: "Nigeria"}},
+{Version: 1, Key: "208194", Type: "City", Rank: 21, LocalizedName: "Isfahan" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
+{Version: 1, Key: "224032", Type: "City", Rank: 21, LocalizedName: "Incheon" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
+{Version: 1, Key: "255043", Type: "City", Rank: 21, LocalizedName: "Ibadan" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
+{Version: 1, Key: "318290", Type: "City", Rank: 21, LocalizedName: "Izmir" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
+{Version: 1, Key: "2333546", Type: "City", Rank: 25, LocalizedName: "Ili Prefecture" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
+{Version: 1, Key: "204411", Type: "City", Rank: 25, LocalizedName: "Indore" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
+{Version: 1, Key: "237597", Type: "City", Rank: 25, LocalizedName: "Iztapalapa" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
+{Version: 1, Key: "258278", Type: "City", Rank: 30, LocalizedName: "Islamabad" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
+{Version: 1, Key: "287994", Type: "City", Rank: 31, LocalizedName: "Iasi" ,Country: {ID: "NG", LocalizedName: "Nigeria"}}]
 
 
 // try {
@@ -85,11 +84,11 @@ closeSearchDropDown(){
 this.clickOutSide = true;
 },
 
-setSelectedCity(selectedCity, cityKey){
+setSelectedCity(selectedCity, cityKey, country){
 this.selectedCityTemp = selectedCity;
 this.selectedCity = selectedCity;
 this.searchTerm = selectedCity;
-this.$emit('citySelect',{selectedCity, cityKey});
+this.$emit('citySelect',{selectedCity, cityKey, country});
 },
 // async getCurrentCityWeather(cityKey) {
 //
@@ -98,16 +97,16 @@ this.$emit('citySelect',{selectedCity, cityKey});
 //
 
 //
-// // try {
-// //    await apiRequest(`forecasts/v1/daily/5day/${cityKey}`)
-// //    .then(res => {
-// //      console.log(res.data);
-// //      //this.cities = [...res.data];
-// //    })
-// //  }catch (error) {
-// //    console.log(error)
-// //  }
-// }
+// try {
+//    await apiRequest(`forecasts/v1/daily/5day/${cityKey}`)
+//    .then(res => {
+//      console.log(res.data);
+//      //this.cities = [...res.data];
+//    })
+//  }catch (error) {
+//    console.log(error)
+//  }
+//}
 }
 }
 </script>
@@ -132,6 +131,7 @@ this.$emit('citySelect',{selectedCity, cityKey});
   overflow-y:scroll ;
   border-bottom-left-radius: .25rem;
   border-bottom-right-radius: .25rem;
+  background-color: white;
 }
 .city-item{
   padding-left:1rem ;

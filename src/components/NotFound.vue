@@ -1,12 +1,12 @@
 <template>
 <div>
-  Favorites Screen
+  <h1>Not Found</h1>
 </div>
 </template>
 
 <script>
 export default {
-  name: "FavoritesScreen"
+  name: "NotFound"
 }
 </script>
 
