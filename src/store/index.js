@@ -15,7 +15,7 @@ export default new Vuex.Store({
        fiveDaysForecasts: [],
        currentCondition: [],
        favorites:[],
-       favoritesItems:[],
+       favoriteItems:[],
     },
     actions,
     mutations

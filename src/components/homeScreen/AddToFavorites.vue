@@ -2,15 +2,16 @@
 <div class="container-favorites">
   <div class="favorite-icon" @click="addCityToFavorites()">
     <i  :class="[  addToFavorites ?  'bi bi-heart-fill' :'bi bi-heart']"></i>
-  </div>
-  <transition name="fade">
-  <div v-if="showToast" class="toast"  >
-    <div class="toast-body">
-     {{cityName}} {{ toastMsg }}
-    </div>
+    <transition name="fade">
+      <div v-if="showToast" class="toast"  >
+        <div class="toast-body">
+          {{ toastMsg }}
+        </div>
 
+      </div>
+    </transition>
   </div>
-  </transition>
+
 
 </div>
 </template>
@@ -52,13 +53,13 @@ export default {
       this.addToFavorites = !this.addToFavorites;
       if(this.addToFavorites){
         this.$store.dispatch('addOrRemoveFavorites',true);
-        this.toastMsg = ", has been added to favorites";
+        this.toastMsg = "added to favorites";
       }else{
         this.$store.dispatch('addOrRemoveFavorites',false);
-        this.toastMsg = ", removed from favorites";
+        this.toastMsg = "removed from favorites";
       }
       this.showToast = true;
-      setTimeout(()=>{this.showToast = false},2000)
+      setTimeout(()=>{this.showToast = false},1000)
     }
 
   }
@@ -71,11 +72,14 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+
 }
 
 .favorite-icon{
   font-size: 4rem;
   margin-right: 10% ;
+  position: relative;
+  padding: 0 10%;
 }
 
 .toast:not(.showing):not(.show) {
@@ -84,11 +88,13 @@ export default {
 
 .toast{
   position: absolute;
-  bottom: 20px;
-  right: 40%;
+  right: 50%;
+  bottom: -20%;
+  font-size: 9px;
   background-color: #673ab7;
   color: white;
   z-index: 1;
+  transition: 0.7s ease-in;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -108,9 +114,19 @@ export default {
 }
 
 
-@media (max-width: 700px) {
+@media (max-width: 770px) {
   .favorite-icon{
     font-size: 2rem;
+    font-size: 2rem;
+    width: 75%;
+    direction: rtl;
+  }
+  .toast{
+    width: fit-content !important;
+    right: 15%;
+    margin: 0 10px;
+    top: 80%;
+    height: fit-content;
   }
   .btn-success{
     padding: 2%;
@@ -121,5 +137,7 @@ export default {
     width: 50%;
   }
 }
-
+@media (max-width: 485px) {
+  
+}
 </style>

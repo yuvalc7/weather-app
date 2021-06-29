@@ -1,9 +1,9 @@
 <template>
-  <div class="container-fluid" id="app">
+  <div class="container-app" id="app">
     <div class="header">
     <NavigationHeader @selected-screen="setSelectedScreen"/>
     </div>
-    <div class="body">
+    <div class="body container">
     <router-view></router-view>
     </div>
   </div>

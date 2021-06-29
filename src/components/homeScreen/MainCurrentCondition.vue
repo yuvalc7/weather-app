@@ -89,7 +89,7 @@ export default {
   margin-right: 5px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 770px) {
   .weather-icon{
     font-size: 3rem;
   }

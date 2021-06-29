@@ -6,16 +6,14 @@
         <router-link
             exact
             to="/favorites"
-            @click="selectedScreen('favorites')"
-            :class="[homeScreenSelected ? 'btn btn-outline-primary' : 'btn btn-primary']"
+            class="btn btn-outline-primary"
         >
           Favorites
         </router-link>
         <router-link
             exact
             to="/"
-            @click="selectedScreen('home')"
-            :class="[homeScreenSelected ?  'btn btn-primary' :'btn btn-outline-primary']"
+            class="btn btn-outline-primary"
         >
           Home
         </router-link>
@@ -38,6 +36,7 @@ export default {
   methods:{
 
     selectedScreen(selected){
+      console.log("cdcdmcdm")
       selected === 'home' ? this.homeScreenSelected = true: this.homeScreenSelected = false;
     }
   }
@@ -47,8 +46,20 @@ export default {
 <style scoped>
 .header-navigation{
   direction: rtl;
+  border-bottom: 1px solid rgba(54, 53, 53, 0.32);
 }
+
+.active{
+  background-color: #0d6efd;
+}
+
 .btn{
-  margin-left: 5%;
+  margin-right: 10%;
+  box-shadow:  0 0 0 0 !important;
+}
+
+.navbar{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 </style>

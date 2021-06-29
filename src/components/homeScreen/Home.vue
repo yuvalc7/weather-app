@@ -67,7 +67,7 @@ export default {
   box-shadow: 0 2px 6px 2px rgb(0 0 0 / 18%), 0 1px 1px 0 rgb(0 0 0 / 41%), 0 1px 3px 0 rgb(0 0 0 / 48%);
   padding: 3%;
   border-radius: 6px;
-
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .search-bar{

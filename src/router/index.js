@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "../components/homeScreen/Home";
 import NotFound from "../components/NotFound";
-import Favorites from "../components/favoritesScreen/Favorites";
+import FavoriteScreen from "../components/favoriteScreen/Favorites";
 
 
 
@@ -23,8 +23,8 @@ export default new Router({
         },
         {
             path: "/favorites",
-            name: "Favorites",
-            component: Favorites,
+            name: "FavoriteScreen",
+            component: FavoriteScreen,
         },
     ]
 });

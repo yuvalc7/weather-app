@@ -1,7 +1,8 @@
 <template>
   <div class="wrapper-search" v-click-outside="closeSearchDropDown" >
     <div class="search-country-weather-input d-flex">
-      <input class="form-control" type="search" placeholder="Search City" v-model="searchTerm">
+      <i class="bi bi-search search-icon"></i>
+      <input class="form-control" type="search" placeholder="Search City Name, e.g: Tel Aviv, Tokyo" v-model="searchTerm">
     </div>
     <ul class="dropdown-cities" v-if="cities.length > 0 && (selectedCityTemp === '' || selectedCityTemp != selectedCity)">
       <li class="city-item" v-for="city in cities" :key="city.Key"
@@ -141,8 +142,17 @@ this.$emit('citySelect',{selectedCity, cityKey, country});
   border-bottom:1px solid #ced4da ;
 }
 .search-icon{
+  display: flex;
+  margin: auto;
+  font-size: 1.7rem;
   position: absolute;
-  right: 10%;
-  bottom: 15%;
+  top: 7px;
+  left: 5px;
 }
+
+input::placeholder{
+
+  padding-left: 30px;
+}
+
 </style>
