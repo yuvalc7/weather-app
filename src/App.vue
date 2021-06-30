@@ -1,6 +1,6 @@
 <template>
 
-  <div class="container-app" id="app">
+  <div class="container-app" id="app" :style="[ themeLight ?  {'background-color' : 'white'} : {'background-color' : '#000000d4'}  ]">
     <div class="header">
     <NavigationHeader @selected-screen="setSelectedScreen"/>
     </div>
@@ -15,14 +15,19 @@
 
 <script>
 
-import NavigationHeader from "@/components/NavigationHeader";
-import Footer from "./components/Footer"
+import NavigationHeader from "./components/header/NavigationHeader";
+import Footer from "./components/Footer/Footer"
+import {mapState} from "vuex";
 
 export default {
   name: 'App',
   components: {
     NavigationHeader,
     Footer
+  },
+
+  computed:{
+    ...mapState(["themeLight"])
   },
 
   data(){

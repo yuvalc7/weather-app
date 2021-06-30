@@ -3,12 +3,11 @@
   <div class="wrapper-location-info-icon">
     <img :src= "getImgUrl()" class="card-img" alt="...">
     <div class="location-info">
-      <span> {{ cityName }}, </span>
-      <span> {{ country }} </span>
+      <span :style="[themeLight ? {'color' : 'black' } : { 'color' : 'white' }]"> {{ cityName }}, </span>
+      <span :style="[themeLight ? {'color' : 'black' } : { 'color' : 'white' }]"> {{ country }} </span>
       <div class="temperature">
-      <span id="current-temp"> {{celsius ? currentCondition.Temperature.Metric.Value : currentCondition.Temperature.Imperial.Value }}</span>
-
-      <span > {{ celsius ? currentCondition.Temperature.Metric.Unit : currentCondition.Temperature.Imperial.Unit }}</span>
+      <span :style="[themeLight ? {'color' : 'black' } : { 'color' : 'white' }]" id="current-temp"> {{celsius ? currentCondition.Temperature.Metric.Value : currentCondition.Temperature.Imperial.Value }}</span>
+      <span :style="[themeLight ? {'color' : 'black' } : { 'color' : 'white' }]" > {{ celsius ? currentCondition.Temperature.Metric.Unit : currentCondition.Temperature.Imperial.Unit }}</span>
       </div>
     </div>
   </div>
@@ -23,32 +22,8 @@ export default {
   name: "MainCurrentCondition",
 
   computed: {
-    ...mapState( ["currentCondition" , "cityName" , "celsius" , "country"])
+    ...mapState( ["currentCondition" , "cityName" , "celsius" , "country", "themeLight"])
   },
-
-  data(){
-    return {
-      // currentCondition:   {EpochTime: 1624877760,
-      //   HasPrecipitation: false,
-      //   IsDayTime: true,
-      //   Link: "http://www.accuweather.com/en/tr/istanbul/318251/current-weather/318251?lang=en-us",
-      //   LocalObservationDateTime: "2021-06-28T13:56:00+03:00",
-      //   MobileLink: "http://m.accuweather.com/en/tr/istanbul/318251/current-weather/318251?lang=en-us",
-      //   PrecipitationType: null,
-      //   Temperature: {Metric: {Value: 31.6, Unit: "C", UnitType: 17}, Imperial: {Value: 89, Unit: "F", UnitType: 18}},
-      //   // Imperial: {Value: 89, Unit: "F", UnitType: 18},
-      //   //
-      //   // Metric: {Value: 31.6, Unit: "C", UnitType: 17},
-      //   // Unit: "C",
-      //   // UnitType: 17,
-      //   // Value: 31.6,
-      //   WeatherIcon: 1,
-      //   WeatherText: "Sunny",
-      //   __proto__: Object,
-      //   length: 1},
-    }
-  },
-
 
   methods:{
     getImgUrl() {

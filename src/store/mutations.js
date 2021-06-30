@@ -26,4 +26,7 @@ export const setLoading = (state, payload) => {
 };
 export const setCelsius  = (state, payload) => {
     state.celsius = payload;
+}
+;export const setThemeLight  = (state, payload) => {
+    state.themeLight = payload;
 };

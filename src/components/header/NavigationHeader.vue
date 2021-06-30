@@ -1,7 +1,6 @@
 <template>
 <div class="header-navigation">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<!--    <div class="container-fluid">-->
+  <nav class="navbar navbar-expand-lg navbar-light " :class="[themeLight ? 'bg-light' : 'bg-dark']">
       <div class="d-flex" >
         <router-link
             exact
@@ -17,15 +16,21 @@
         >
           Home
         </router-link>
-<!--      </div>-->
     </div>
   </nav>
 </div>
 </template>
 
 <script>
+
+import {mapState} from "vuex";
+
 export default {
   name: "NavigationHeader",
+
+  computed:{
+    ...mapState(["themeLight"])
+  },
 
   data(){
     return{

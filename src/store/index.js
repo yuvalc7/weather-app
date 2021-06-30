@@ -20,6 +20,7 @@ export default new Vuex.Store({
        isFavorite:false,
        loading:true,
        celsius:true,
+        themeLight:true,
     },
     actions,
     mutations

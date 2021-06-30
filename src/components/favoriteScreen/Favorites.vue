@@ -11,7 +11,16 @@
   </div>
   <div v-if="!loading && !showError">
     <div v-if="favoriteItems.length" class="favorites-cards">
-      <card  v-for="favoriteItem in favoriteItems" :key="favoriteItem.key" :cityKey="favoriteItem.key" :temperature="favoriteItem.temperature" :icon="favoriteItem.icon" :iconPhrase="favoriteItem.iconPhrase" :name="favoriteItem.name" :country="favoriteItem.country" :cardsComponent="false" ></card>
+      <card  v-for="favoriteItem in favoriteItems"
+             :key="favoriteItem.key"
+             :cityKey="favoriteItem.key"
+             :temperature="favoriteItem.temperature"
+             :icon="favoriteItem.icon"
+             :iconPhrase="favoriteItem.iconPhrase"
+             :name="favoriteItem.name"
+             :country="favoriteItem.country"
+             :cardsComponent="false" >
+      </card>
     </div>
     <div class="empty-favorites-list container" v-else>
       <h3>

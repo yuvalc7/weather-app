@@ -125,5 +125,8 @@ export function addOrRemoveFavorites({ commit, state }, add ) {
 export function getTemperature ({ commit } , celsius) {
     commit("setCelsius", celsius);
 }
+export function changeTheme ({ commit } , light) {
+    commit("setThemeLight", light);
+}
 
 
