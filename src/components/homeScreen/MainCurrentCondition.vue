@@ -1,14 +1,14 @@
 <template>
 
-  <div class="wrapper-city-name-temperature-icon">
-<!--    <i class="bi bi-brightness-high-fill weather-icon"></i>-->
+  <div class="wrapper-location-info-icon">
     <img :src= "getImgUrl()" class="card-img" alt="...">
-    <div class="city-name-temperature">
-      <span> {{ cityName }} </span>
+    <div class="location-info">
+      <span> {{ cityName }}, </span>
+      <span> {{ country }} </span>
       <div class="temperature">
-      <span id="current-temp"> {{currentCondition.Temperature.Metric.Value }}</span>
+      <span id="current-temp"> {{celsius ? currentCondition.Temperature.Metric.Value : currentCondition.Temperature.Imperial.Value }}</span>
 
-      <span > {{currentCondition.Temperature.Metric.Unit }}</span>
+      <span > {{ celsius ? currentCondition.Temperature.Metric.Unit : currentCondition.Temperature.Imperial.Unit }}</span>
       </div>
     </div>
   </div>
@@ -23,35 +23,32 @@ export default {
   name: "MainCurrentCondition",
 
   computed: {
-    ...mapState( [ "cityName" ])//"currentCondition"
+    ...mapState( ["currentCondition" , "cityName" , "celsius" , "country"])
   },
 
   data(){
     return {
-      currentCondition:   {EpochTime: 1624877760,
-        HasPrecipitation: false,
-        IsDayTime: true,
-        Link: "http://www.accuweather.com/en/tr/istanbul/318251/current-weather/318251?lang=en-us",
-        LocalObservationDateTime: "2021-06-28T13:56:00+03:00",
-        MobileLink: "http://m.accuweather.com/en/tr/istanbul/318251/current-weather/318251?lang=en-us",
-        PrecipitationType: null,
-        Temperature: {Metric: {Value: 31.6, Unit: "C", UnitType: 17}, Imperial: {Value: 89, Unit: "F", UnitType: 18}},
-        // Imperial: {Value: 89, Unit: "F", UnitType: 18},
-        //
-        // Metric: {Value: 31.6, Unit: "C", UnitType: 17},
-        // Unit: "C",
-        // UnitType: 17,
-        // Value: 31.6,
-        WeatherIcon: 1,
-        WeatherText: "Sunny",
-        __proto__: Object,
-        length: 1},
+      // currentCondition:   {EpochTime: 1624877760,
+      //   HasPrecipitation: false,
+      //   IsDayTime: true,
+      //   Link: "http://www.accuweather.com/en/tr/istanbul/318251/current-weather/318251?lang=en-us",
+      //   LocalObservationDateTime: "2021-06-28T13:56:00+03:00",
+      //   MobileLink: "http://m.accuweather.com/en/tr/istanbul/318251/current-weather/318251?lang=en-us",
+      //   PrecipitationType: null,
+      //   Temperature: {Metric: {Value: 31.6, Unit: "C", UnitType: 17}, Imperial: {Value: 89, Unit: "F", UnitType: 18}},
+      //   // Imperial: {Value: 89, Unit: "F", UnitType: 18},
+      //   //
+      //   // Metric: {Value: 31.6, Unit: "C", UnitType: 17},
+      //   // Unit: "C",
+      //   // UnitType: 17,
+      //   // Value: 31.6,
+      //   WeatherIcon: 1,
+      //   WeatherText: "Sunny",
+      //   __proto__: Object,
+      //   length: 1},
     }
   },
 
-  mounted() {
-   // console.log(this.currentCondition);
-  },
 
   methods:{
     getImgUrl() {
@@ -66,11 +63,11 @@ export default {
 <style scoped>
 
 
-.wrapper-city-name-temperature-icon{
+.wrapper-location-info-icon{
   display: flex;
   width: 40%;
 }
-.city-name-temperature{
+.location-info{
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -83,6 +80,7 @@ export default {
 }
 .temperature{
   display: flex;
+  font-size: 25px;
 }
 #current-temp:after{
   content:"° ";
@@ -90,11 +88,21 @@ export default {
 }
 
 @media (max-width: 770px) {
-  .weather-icon{
-    font-size: 3rem;
+
+  .wrapper-location-info-icon{
+    align-items: center;
   }
-  .city-name-temperature{
+
+  .location-info{
     font-size: 15px;
+  }
+  .temperature{
+    font-size: 15px;
+  }
+
+  .card-img{
+    width: 750px;
+    height: 50px;
   }
 }
 

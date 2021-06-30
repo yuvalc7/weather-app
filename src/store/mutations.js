@@ -12,7 +12,18 @@ export const setCurrentCondition = (state, payload) => {
 export const setFavorites = (state, payload) => {
     state.favorites = payload;
 };
-export const setFavoritesItems = (state, payload) => {
-    console.log(payload)
-    state.favoritesItems = payload;
+export const setFavoriteItems = (state, payload) => {
+    state.favoriteItems = payload;
+};
+export const setErrorMessage = (state, payload) => {
+    state.errorMessage = payload;
+};
+export const setIsFavorite = (state, payload) => {
+    state.isFavorite = payload;
+};
+export const setLoading = (state, payload) => {
+    state.loading = payload;
+};
+export const setCelsius  = (state, payload) => {
+    state.celsius = payload;
 };

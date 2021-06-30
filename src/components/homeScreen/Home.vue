@@ -40,19 +40,18 @@ export default {
   },
 
   mounted() {
-    // this.$store.dispatch('getForecastsFiveDays');
-    // this.$store.dispatch('getCurrentCondition' );
+    this.$store.dispatch('getForecastsFiveDays');
+    this.$store.dispatch('getCurrentCondition' );
+    this.$store.dispatch('getIsFavorite' );
   },
-
-
 
   methods:{
 
     setStoreVars(CityNameKeyAndCountry){
-      //console.log(CityNameKeyAndCountry.cityKey);
       this.$store.commit('setKeyNameCityAndCountry' , CityNameKeyAndCountry);
-       // this.$store.dispatch('getForecastsFiveDays');
-       // this.$store.dispatch('getCurrentCondition' );
+       this.$store.dispatch('getForecastsFiveDays');
+       this.$store.dispatch('getCurrentCondition' );
+       this.$store.dispatch('getIsFavorite' );
     }
 
   }
@@ -65,7 +64,7 @@ export default {
   height: fit-content;
   margin-top: 3% ;
   box-shadow: 0 2px 6px 2px rgb(0 0 0 / 18%), 0 1px 1px 0 rgb(0 0 0 / 41%), 0 1px 3px 0 rgb(0 0 0 / 48%);
-  padding: 3%;
+  padding: 3% 3% 0 3%;
   border-radius: 6px;
   font-family: 'Ubuntu', sans-serif;
 }

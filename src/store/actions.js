@@ -1,48 +1,40 @@
 import apiRequest from "@/api/request";
 
 export async function getForecastsFiveDays({ commit, state }) {
+    commit("setErrorMessage" , "")
     try {
    await apiRequest(`forecasts/v1/daily/5day/${state.keyCitySelect}`)
    .then(res => {
-       console.log(res.data.DailyForecasts);
      commit("setFiveDaysForecasts", res.data.DailyForecasts);
-     return res.data.DailyForecasts;
    })
  }catch (error) {
-   console.log(error)
+        commit("setErrorMessage" , "An error occurred. Please try again in a few minutes")
  }
 }
 export async function getCurrentCondition({ commit, state } ) {
+    commit("setErrorMessage" , "")
    try {
    await apiRequest(`currentconditions/v1/${state.keyCitySelect}`)
    .then(res => {
        commit("setCurrentCondition", res.data[0]);
-
    })
  } catch (error)
     {
-        console.log(error)
+       commit("setErrorMessage" , "An error occurred. Please try again in a few minutes")
     }
 }
-export function addOrRemoveFavorites({ commit, state }, add ) {
+export function getIsFavorite({ commit }) {
 
-    let tempFavorites = state.favorites;
-   if(add){
-       if(!(tempFavorites.some(favoriteItem => favoriteItem.key === this.state.keyCitySelect)) && tempFavorites.push({
-           key:this.state.keyCitySelect,
-           name:this.state.cityName,
-           country:this.state.country
-       }));
-   }else {
-       tempFavorites = tempFavorites.filter(favoriteItem => favoriteItem.key !== this.state.keyCitySelect);
-       localStorage.removeItem('favorites');
-   }
-    localStorage.setItem("favorites" , JSON.stringify(tempFavorites));
-    commit("setFavorites", tempFavorites);
+       if(localStorage.getItem("favorites").length){
+           if((JSON.parse(localStorage.getItem("favorites")).some(favoriteItem => favoriteItem.key === this.state.keyCitySelect))){
+               commit("setIsFavorite" , true)
+           }else{
+               commit("setIsFavorite" , false)
+           }
+       }
  }
-export function getFavoritesItems({ commit }) {
-    // console.log(commit);
-    //
+export function getFavoriteItems({ commit }) {
+
     // let data = [
     //     {
     //         'country'
@@ -93,8 +85,10 @@ export function getFavoritesItems({ commit }) {
 
     if(localStorage.getItem("favorites").length){
         let tempFavoritesItems = [];
+        commit("setLoading", true);
+
         JSON.parse(localStorage.getItem("favorites")).forEach( item => {
-                apiRequest(`currentconditions/v1/${item.key}`)
+                 apiRequest(`currentconditions/v1/${item.key}`)
                 .then(({data}) => {
                     tempFavoritesItems.push({
                         key: item.key,
@@ -105,13 +99,31 @@ export function getFavoritesItems({ commit }) {
                         icon: data[0].WeatherIcon,
                         iconPhrase: data[0].WeatherText
                     })
-                    console.log(tempFavoritesItems);
+                    commit("setLoading", false);
                 })
-
         })
-        commit("setFavoritesItems" , tempFavoritesItems);
+                commit("setFavoriteItems", tempFavoritesItems);
+
     }
  }
+export function addOrRemoveFavorites({ commit, state }, add ) {
 
+    let tempFavorites = state.favorites;
+    if(add){
+        if(!(tempFavorites.some(favoriteItem => favoriteItem.key === this.state.keyCitySelect)) && tempFavorites.push({
+            key:this.state.keyCitySelect,
+            name:this.state.cityName,
+            country:this.state.country
+        }));
+    }else {
+        tempFavorites = tempFavorites.filter(favoriteItem => favoriteItem.key !== this.state.keyCitySelect);
+        localStorage.removeItem('favorites');
+    }
+    localStorage.setItem("favorites" , JSON.stringify(tempFavorites));
+    commit("setFavorites", tempFavorites);
+}
+export function getTemperature ({ commit } , celsius) {
+    commit("setCelsius", celsius);
+}
 
 
