@@ -1,6 +1,6 @@
 <template>
 
-  <div class="container-app" id="app" :style="[ themeLight ?  {'background-color' : 'white'} : {'background-color' : '#000000d4'}  ]">
+  <div class="container-app" id="app" :style="[ themeLight ?  {'background-color' : '#9086862e'} : {'background-color' : 'rgb(1 4 25 / 93%)'}  ]">
     <div class="header">
     <NavigationHeader @selected-screen="setSelectedScreen"/>
     </div>

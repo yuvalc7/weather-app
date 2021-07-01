@@ -3,15 +3,19 @@
     <div class="search-bar" >
     <search-bar @citySelect="setStoreVars"/>
     </div>
-    <div class="main-container">
-    <div class="main-current-condition-section">
+    <div  class="main-container" v-if="errorMessage < 1" :style="[ themeLight ?  {'background-color' : '#f8f9fa'} : {'background-color' : ' #212529'}]">
+      <div class="main-current-condition-section">
       <main-current-condition/>
       <AddToFavorites/>
     </div>
     <div class="cards-container">
        <cards/>
     </div>
+
     </div>
+<!--    add loading-->
+    <ErrorMessage v-else></ErrorMessage>
+
   </div>
 </template>
 
@@ -23,14 +27,14 @@ import MainCurrentCondition from "./MainCurrentCondition";
 import AddToFavorites from "./AddToFavorites";
 import Cards from "./Cards.Container"
 import {mapState} from "vuex";
-
+import ErrorMessage from "../errorMessage/ErrorMessage";
 export default {
   name: 'HomeScreen',
 
-  components:{SearchBar, MainCurrentCondition, AddToFavorites, Cards},
+  components:{SearchBar, MainCurrentCondition, AddToFavorites, Cards, ErrorMessage},
 
   computed: {
-    ...mapState( ["country","keyCitySelect", "fiveDaysForecasts", "currentCondition" ])
+    ...mapState( ["country","keyCitySelect", "fiveDaysForecasts", "currentCondition", 'themeLight', 'errorMessage' ])
   },
 
   data(){
@@ -79,6 +83,8 @@ export default {
   justify-content: space-between;
   margin-bottom: 10%;
 }
+
+
 
 @media (max-width: 700px) {
   .search-bar{

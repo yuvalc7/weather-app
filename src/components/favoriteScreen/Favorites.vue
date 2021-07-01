@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div v-if="showError" class="error-message">
-      {{ errorMessage }}
-    </div>
-  <div v-if="loading  && !showError" class="loading">
+   <div v-if="errorMessage.length > 0">
+     <ErrorMessage/>
+   </div>
+  <div v-if="loading  && errorMessage.length < 1" class="loading">
     <span></span>
     <span></span>
     <span></span>
     <span></span>
   </div>
-  <div v-if="!loading && !showError">
+  <div v-if="!loading && errorMessage.length < 1">
     <div v-if="favoriteItems.length" class="favorites-cards">
       <card  v-for="favoriteItem in favoriteItems"
              :key="favoriteItem.key"
@@ -36,6 +36,7 @@
 
 import Card from "../homeScreen/Card";
 import {mapState} from "vuex";
+import ErrorMessage from "../errorMessage/ErrorMessage";
 
 export default {
   name: "FavoriteScreen",
@@ -45,7 +46,8 @@ export default {
   },
 
   components:{
-    Card
+    Card,
+    ErrorMessage
   },
 
   data(){
@@ -58,9 +60,7 @@ export default {
 
   mounted() {
   this.$store.dispatch("getFavoriteItems");
-  if(this.errorMessage.length){
-    this.showError = true;
-  }
+
   },
 
 

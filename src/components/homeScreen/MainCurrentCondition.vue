@@ -27,8 +27,13 @@ export default {
 
   methods:{
     getImgUrl() {
-      var images = require.context('../../../public/icons/', false, /\.png$/)
-      return images('./' + this.currentCondition.WeatherIcon + "-s.png")
+      try {
+        var images = require.context('../../../public/icons/', false, /\.png$/)
+        return images('./' + this.currentCondition.WeatherIcon + "-s.png")
+      }catch (error){
+        console.log("error" , error);
+        return '../../../public/icons/1-s.png';
+      }
     },
   }
 

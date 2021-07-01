@@ -1,7 +1,10 @@
 <template>
 <div class="container-favorites">
   <div class="favorite-icon" @click="addCityToFavorites()">
-    <i  :class="[ isFavorite ?  'bi bi-heart-fill' :'bi bi-heart']"></i>
+    <i  :class="[ isFavorite ?  'bi bi-heart-fill' :'bi bi-heart']"
+        :style="[!isFavorite && !themeLight ? {'color' : ' white'} : {} ]"
+    >
+    </i>
       <div v-if="showToast" class="toast"  >
         <div class="toast-body">
           {{ toastMsg }}
@@ -20,7 +23,7 @@ export default {
   name: "AddToFavorites",
 
   computed: {
-    ...mapState( ["cityName","keyCitySelect" , "isFavorite"])
+    ...mapState( ["cityName","keyCitySelect" , "isFavorite",'themeLight' ])
   },
 
   data() {

@@ -1,7 +1,7 @@
 <template>
 <footer>
   <Toggle :temperature="false"/>
-  <p class="content">Made for <strong>Herolo</strong> using <strong>Vue</strong> with ❤ by <strong>Yuval Cohen</strong> 2021 </p>
+  <p class="content">Made by <strong>Yuval Cohen</strong></p>
   <Toggle :temperature="true"/>
 </footer>
 </template>
@@ -26,6 +26,17 @@ footer{
 
 .content{
   margin: 0 10%;
+}
+
+@media  (max-width: 515px){
+  .content{
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 360px){
+  .content{
+    font-size:0.6rem;
+  }
 }
 
 </style>
