@@ -9,7 +9,6 @@
         <div class="toast-body">
           {{ toastMsg }}
         </div>
-
       </div>
   </div>
 
@@ -29,31 +28,12 @@ export default {
   data() {
     return {
       addToFavorites: false,
-     // cityName: this.$store.state.cityName,
       toastMsg:"",
       showToast:false,
-
-
     }
   },
 
-  // mounted() {
-  //  this.checkIfInFavorites();
-  // },
-
   methods:{
-
-  // checkIfInFavorites(){
-  //     if(localStorage.getItem("favorites").length){
-  //       console.log("HETR473")
-  //       this.addToFavorites = (JSON.parse(localStorage.getItem("favorites")).some(item => {return item.key == this.keyCitySelect}))
-  //       // if(JSON.parse(localStorage.getItem("favorites")).some(item => {return item.key == this.keyCitySelect})){
-  //       //   console.log("HETR")
-  //       //   this.addToFavorites = true;
-  //       // }
-  //
-  //     }
-  // },
 
     addCityToFavorites(){
 
@@ -85,7 +65,6 @@ export default {
 .favorite-icon{
   font-size: 4rem;
   margin-right: 10% ;
-  /*position: relative;*/
   padding: 0 10%;
 }
 
@@ -99,13 +78,9 @@ export default {
   left: 0;
   right: 0;
   margin: auto;
-  /*position: absolute;*/
-  /*right: 50%;*/
-  /*bottom: -20%;*/
   font-size:12px;
   background-color: #673ab7;
   color: white;
-  /*z-index: 1;*/
   animation: fadeInAnimation ease 2s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
@@ -126,17 +101,9 @@ export default {
     opacity: 0;
   }
 }
-
-
-
 .bi-heart-fill{
   color: red;
 }
-
-.btn-success{
-  padding: 2%;
-}
-
 
 @media (max-width: 770px) {
   .favorite-icon{
@@ -145,14 +112,6 @@ export default {
     width: 75%;
     direction: rtl;
   }
-  .btn-success{
-    padding: 2%;
-    font-size: 12px;
-  }
-  /*.toast{*/
-  /*  left: 25%;*/
-  /*  width: 50%;*/
-  /*}*/
 }
 
 @media (max-width: 350px){

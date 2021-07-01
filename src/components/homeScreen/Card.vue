@@ -1,7 +1,7 @@
 <template>
   <div class="card" @click="redirectToHome()" >
     <div class="wrapper-card-header">
-    <a href="https://www.accuweather.com" target="_blank" v-if="cardsComponent" class="card-title" @click="redirectToApiSite()">{{currentDay}}</a>
+    <a href="https://www.accuweather.com" target="_blank" v-if="cardsComponent" class="card-title">{{currentDay}}</a>
     <h3>{{name}}</h3>
     <h5>{{country}}</h5>
     <p class="card-text-icon-phrase"><small class="text-muted">{{iconPhrase}}</small></p>
@@ -90,11 +90,6 @@ export default {
         });
         this.$router.push({ name: 'Home' });
       }
-
-    },
-
-    redirectToApiSite(){
-      this.router.push(({name: 'google.com'}))
     },
 
     setMaxAndMinTemperature(){
@@ -107,8 +102,12 @@ export default {
       },
 
     getImgUrl() {
-      var images = require.context('../../../public/icons/', false, /\.png$/)
-      return images('./' + this.icon + "-s.png")
+      try {
+        var images = require.context('../../../public/icons/', false, /\.png$/)
+        return images('./' + this.icon + "-s.png")
+      }catch (error){
+        return '../../../public/icons/1-s.png';
+      }
     },
 
     setDate(){
@@ -117,8 +116,6 @@ export default {
 
   }
 }
-
-
 
 </script>
 

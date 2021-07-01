@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <div class="search-bar" >
+    <div v-if="errorMessage < 1 && !loading" class="search-bar" >
     <search-bar @citySelect="setStoreVars"/>
     </div>
-    <div  class="main-container" v-if="errorMessage < 1" :style="[ themeLight ?  {'background-color' : '#f8f9fa'} : {'background-color' : ' #212529'}]">
+    <div  class="main-container" v-if="errorMessage < 1 && !loading" :style="[ themeLight ?  {'background-color' : '#f8f9fa'} : {'background-color' : ' #212529'}]">
       <div class="main-current-condition-section">
       <main-current-condition/>
       <AddToFavorites/>
@@ -13,9 +13,12 @@
     </div>
 
     </div>
-<!--    add loading-->
-    <ErrorMessage v-else></ErrorMessage>
-
+    <div v-if="errorMessage.length > 0">
+      <ErrorMessage/>
+    </div>
+    <div v-if="loading  && errorMessage.length < 1" class="loader">
+      <Loader/>
+    </div>
   </div>
 </template>
 
@@ -23,18 +26,19 @@
 
 
 import SearchBar from "./SearchBar";
-import MainCurrentCondition from "./MainCurrentCondition";
-import AddToFavorites from "./AddToFavorites";
+import Loader from "../loader/Loader";
+import MainCurrentCondition from "./mainHeader/MainCurrentCondition";
+import AddToFavorites from "./mainHeader/AddToFavorites";
 import Cards from "./Cards.Container"
 import {mapState} from "vuex";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 export default {
   name: 'HomeScreen',
 
-  components:{SearchBar, MainCurrentCondition, AddToFavorites, Cards, ErrorMessage},
+  components:{SearchBar, MainCurrentCondition, AddToFavorites, Cards, ErrorMessage, Loader},
 
   computed: {
-    ...mapState( ["country","keyCitySelect", "fiveDaysForecasts", "currentCondition", 'themeLight', 'errorMessage' ])
+    ...mapState( ["country","keyCitySelect", "fiveDaysForecasts", "currentCondition", 'themeLight', 'errorMessage', 'loading' ])
   },
 
   data(){
@@ -62,7 +66,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .main-container{
   height: fit-content;
@@ -83,8 +86,6 @@ export default {
   justify-content: space-between;
   margin-bottom: 10%;
 }
-
-
 
 @media (max-width: 700px) {
   .search-bar{

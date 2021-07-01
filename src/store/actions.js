@@ -35,54 +35,6 @@ export function getIsFavorite({ commit }) {
  }
 export function getFavoriteItems({ commit }) {
 
-    // let data = [
-    //     {
-    //         'country'
-    //             :
-    //             "", 'date'
-    //             :
-    //             "2021-06-29T16:11:00+03:00", 'icon'
-    //             :
-    //             2, 'iconPhrase'
-    //             :
-    //             "Mostly sunny", 'key'
-    //             :
-    //             "215854", 'name'
-    //             :
-    //             "Tel Aviv",
-    //         'temperature'
-    //             :
-    //             {
-    //                 'Imperial'
-    //                     :
-    //                     {
-    //                         'Unit'
-    //                             :
-    //                             "F", 'UnitType'
-    //                             :
-    //                             18, 'Value'
-    //                             :
-    //                             89
-    //                     }
-    //                 ,
-    //                 'Metric'
-    //                     :
-    //                     {
-    //                         'Unit'
-    //                             :
-    //                             "C",
-    //                         'UnitType'
-    //                             :
-    //                             17,
-    //                         'Value'
-    //                             :
-    //                             31.9
-    //                     }
-    //             }
-    //     }
-    // ];
-    //commit("setFavoritesItems" , data);
-
     if(localStorage.getItem("favorites").length){
         let tempFavoritesItems = [];
         commit("setLoading", true);
@@ -107,7 +59,6 @@ export function getFavoriteItems({ commit }) {
     }
  }
 export function addOrRemoveFavorites({ commit, state }, add ) {
-
     let tempFavorites = state.favorites;
     if(add){
         if(!(tempFavorites.some(favoriteItem => favoriteItem.key === this.state.keyCitySelect)) && tempFavorites.push({

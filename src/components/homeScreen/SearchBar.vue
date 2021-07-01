@@ -2,7 +2,7 @@
   <div class="wrapper-search" v-click-outside="closeSearchDropDown" @click="clickOutSide = false" >
     <div class="search-country-weather-input d-flex">
       <i class="bi bi-search search-icon"></i>
-      <input class="form-control input-search" type="search" placeholder="Search City Name, e.g: Tel Aviv, Tokyo" v-model="searchTerm" >
+      <input class="form-control input-search" type="search" placeholder="Please Search And Select City Name, e.g: Tel Aviv, Tokyo" v-model="searchTerm" >
     </div>
     <ul class="dropdown-cities" v-if="cities.length > 0 && (selectedCityTemp === '' || selectedCityTemp != selectedCity) && !clickOutSide">
       <li class="city-item" v-for="city in cities" :key="city.Key"
@@ -10,6 +10,11 @@
         {{city.LocalizedName}}
       </li>
     </ul>
+    <div v-if="showToast" class="toast"  >
+      <div class="toast-body">
+        {{ errorMessage }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -32,7 +37,9 @@ searchTerm:"",
 cities:[],
 selectedCity: "",
 selectedCityTemp: "",
-clickOutSide: false
+clickOutSide: false,
+  errorMessage:"",
+  showToast:false
 }
 },
 
@@ -44,7 +51,7 @@ mounted() {
 watch:{
 searchTerm: function(){
 
-   this.searchTerm = this.searchTerm.replace(/[^A-Za-zs]/g,'');
+this.searchTerm = this.searchTerm.replace(/[^A-Za-zs]/g,'');
 if(this.searchTerm.length > 0  ){
   this.selectedCityTemp = this.searchTerm
   if(this.selectedCity != this.selectedCityTemp){
@@ -59,25 +66,25 @@ if(this.searchTerm.length > 0  ){
 methods:{
 debouncedQuery: _.debounce(async function() {
 
-// this.cities = [{Version: 1, Key: "318251", Type: "City", Rank: 11, LocalizedName: "Istanbul", Country: {ID: "NG", LocalizedName: "Nigeria"}},
-// {Version: 1, Key: "208194", Type: "City", Rank: 21, LocalizedName: "Isfahan" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
-// {Version: 1, Key: "224032", Type: "City", Rank: 21, LocalizedName: "Incheon" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
-// {Version: 1, Key: "255043", Type: "City", Rank: 21, LocalizedName: "Ibadan" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
-// {Version: 1, Key: "318290", Type: "City", Rank: 21, LocalizedName: "Izmir" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
-// {Version: 1, Key: "2333546", Type: "City", Rank: 25, LocalizedName: "Ili Prefecture" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
-// {Version: 1, Key: "204411", Type: "City", Rank: 25, LocalizedName: "Indore" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
-// {Version: 1, Key: "237597", Type: "City", Rank: 25, LocalizedName: "Iztapalapa" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
-// {Version: 1, Key: "258278", Type: "City", Rank: 30, LocalizedName: "Islamabad" ,Country: {ID: "NG", LocalizedName: "Nigeria"}},
-// {Version: 1, Key: "287994", Type: "City", Rank: 31, LocalizedName: "Iasi" ,Country: {ID: "NG", LocalizedName: "Nigeria"}}]
-
-
 try {
   await apiRequest("locations/v1/cities/autocomplete" , this.searchTerm)
   .then(res => {
-    this.cities = [...res.data];
+    if(res.data.length > 0) {
+      this.cities = [...res.data];
+    }else{
+      if(this.searchTerm.length > 0) {
+        this.errorMessage = 'the city not found! try search prefix of the city'
+        this.showToast = true;
+        setTimeout(() => {
+          this.showToast = false
+        }, 7000)
+      }
+    }
   })
 }catch (error) {
-  console.log(error)
+  this.errorMessage = 'the city not found! try search prefix of the city'
+  this.showToast = true;
+  setTimeout(()=>{this.showToast = false},7000)
 }
 }, 2000),
 
@@ -157,6 +164,40 @@ this.$emit('citySelect',{selectedCity, cityKey, country});
   position: absolute;
   top: 7px;
   left: 5px;
+}
+
+.toast:not(.showing):not(.show) {
+  opacity: 1;
+}
+
+.toast{
+  position: fixed;
+  top:10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size:12px;
+  background-color: #d71048;
+  color: white;
+  animation: fadeInAnimation ease 7s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  width: fit-content;
+
+}
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  40%{
+    opacity: 1;
+  }
+  60%{
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 

@@ -38,13 +38,6 @@ export default {
     }
   },
 
-  methods:{
-
-    selectedScreen(selected){
-      console.log("cdcdmcdm")
-      selected === 'home' ? this.homeScreenSelected = true: this.homeScreenSelected = false;
-    }
-  }
 };
 </script>
 
@@ -52,10 +45,6 @@ export default {
 .header-navigation{
   direction: rtl;
   border-bottom: 1px solid rgba(54, 53, 53, 0.32);
-}
-
-.active{
-  background-color: #0d6efd;
 }
 
 .btn{

@@ -1,13 +1,14 @@
 <template>
-  <div>
+  <div class="wrapper">
+    <h1 class="headline" :style="[themeLight ? {'color' : 'black'} : {'color' : 'white'}]">
+      Favorites
+      <i class="fas fa-heart heart-icon" style="color: salmon;"></i>
+    </h1>
    <div v-if="errorMessage.length > 0">
      <ErrorMessage/>
    </div>
-  <div v-if="loading  && errorMessage.length < 1" class="loading">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+  <div v-if="loading  && errorMessage.length < 1" class="loader">
+    <Loader/>
   </div>
   <div v-if="!loading && errorMessage.length < 1">
     <div v-if="favoriteItems.length" class="favorites-cards">
@@ -37,23 +38,22 @@
 import Card from "../homeScreen/Card";
 import {mapState} from "vuex";
 import ErrorMessage from "../errorMessage/ErrorMessage";
-
+import Loader from "../loader/Loader";
 export default {
   name: "FavoriteScreen",
 
   computed: {
-    ...mapState( ["favoriteItems", 'loading', "errorMessage"])
+    ...mapState( ["favoriteItems", 'loading', "errorMessage", "themeLight"])
   },
 
   components:{
     Card,
-    ErrorMessage
+    ErrorMessage,
+    Loader
   },
 
   data(){
     return{
-      //favoritesItems: [],
-      //loading: true,
       showError:false
     }
   },
@@ -78,83 +78,20 @@ export default {
   padding: 0 5%
 }
 
+.headline{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.heart-icon{
+  margin-left: 7px;
+}
+
 @media (max-width: 770px) {
   .favorites-cards{
     height: 55%;
     flex-direction: column;
   }
-
 }
-
-
-.loading {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 40px;
-  width: 40px;
-  transform: translate(-50%, -50%) rotate(45deg) translate3d(0, 0, 0);
-  animation: animate 1.2s ease-in-out infinite;
-}
-
-@keyframes animate {
-  0%,
-  10%,
-  100% {
-    height: 40px;
-    width: 40px;
-  }
-  65% {
-    height: 70px;
-    width: 70px;
-  }
-}
-
-span {
-  position: absolute;
-  display: block;
-  width: 20px;
-  height: 20px;
-  animation: rotate 1.2s linear both infinite;
-}
-
-@keyframes rotate {
-  0%,
-  30% {
-    transform: rotate(0);
-  }
-  65% {
-    transform: rotate(-40deg);
-  }
-  100% {
-    transform: rotate(-90deg);
-  }
-}
-
-span:nth-child(1) {
-  top: 0;
-  left: 0;
-  background: #55d462;
-}
-
-span:nth-child(2) {
-  top: 0;
-  right: 0;
-  background: #8675e5;
-}
-
-span:nth-child(3) {
-  bottom: 0;
-  left: 0;
-  background: #d84c77;
-}
-
-span:nth-child(4) {
-  bottom: 0;
-  right: 0;
-  background: #fd9a3f;
-}
-
-
 
 </style>

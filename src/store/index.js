@@ -18,7 +18,7 @@ export default new Vuex.Store({
        favoriteItems:[],
        errorMessage:"",
        isFavorite:false,
-       loading:true,
+       loading:false,
        celsius:true,
         themeLight:true,
     },
